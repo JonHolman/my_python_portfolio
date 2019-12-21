@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Serverless directories
+.serverless
+
+# dependencies
+/node_modules
+
+# macOS
+.DS_Store
