@@ -1,0 +1,7 @@
+Resources:
+  exportUsersJson:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: exportUsersJson-${self:custom.stage}
+      Type: String
+      Value: "0" # evaluates to False when converted to a boolean (via int)

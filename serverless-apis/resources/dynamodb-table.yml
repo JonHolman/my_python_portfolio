@@ -1,0 +1,76 @@
+Resources:
+  NotesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.notesTableName}
+      AttributeDefinitions:
+        - AttributeName: userid
+          AttributeType: S
+        - AttributeName: noteId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userid
+          KeyType: HASH
+        - AttributeName: noteId
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.usersTableName}
+      AttributeDefinitions:
+        - AttributeName: "userid"
+          AttributeType: "S"
+        - AttributeName: "physicians_userid"
+          AttributeType: "S"
+        - AttributeName: "cognito_user_id"
+          AttributeType: "S"
+        - AttributeName: "email"
+          AttributeType: "S"
+        - AttributeName: "this_is_a_physician"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "userid"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "4"
+        WriteCapacityUnits: "1"
+      GlobalSecondaryIndexes:
+        - IndexName: "cognito_user_id-index"
+          KeySchema:
+            - AttributeName: "cognito_user_id"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: "1"
+            WriteCapacityUnits: "1"
+        - IndexName: "physicians_userid-index"
+          KeySchema:
+            - AttributeName: "physicians_userid"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: "1"
+            WriteCapacityUnits: "1"
+        - IndexName: "email-index"
+          KeySchema:
+            - AttributeName: "email"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: "1"
+            WriteCapacityUnits: "1"
+        - IndexName: "this_is_a_physician-index"
+          KeySchema:
+            - AttributeName: "this_is_a_physician"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: "ALL"
+          ProvisionedThroughput:
+            ReadCapacityUnits: "1"
+            WriteCapacityUnits: "1"
